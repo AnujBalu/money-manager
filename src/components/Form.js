@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+import CategoryPopup from "./CategoryPopup";
 
-function Form({ setIsPieOrAmount, chooseFormType }) {
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+function Form({ setIsPieOrAmount, chooseFormType,Category }) {
+
   const [formData, setFormData] = useState({
     formType:chooseFormType.Form_type,
     amount: 0,
@@ -10,9 +16,10 @@ function Form({ setIsPieOrAmount, chooseFormType }) {
     category: "",
     note: "",
   });
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const ExpenseCategories = ["Food", "Transport", "Shopping", "Bills", "Entertainment", "Others"];
-  const IncomeCategories = ["Salary", "Gift", "Savings", "Others"];
+  // const ExpenseCategories = ["Food", "Transport", "Shopping", "Bills", "Entertainment", "Others"];
+  // const IncomeCategories = ["Salary", "Gift", "Savings", "Others"];
 
   // Handle input changes
   const handleChange = (e) => {
@@ -23,10 +30,13 @@ function Form({ setIsPieOrAmount, chooseFormType }) {
     }));
   };
 
-  const addCategory = (e) => {
-    e.preventDefault();
-    alert("Category addition feature coming soon!");
+
+  const refreshCategories = async () => {
+    // Fetch updated categories from the server
   };
+  
+
+ 
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -94,7 +104,11 @@ function Form({ setIsPieOrAmount, chooseFormType }) {
         <div className="mb-4">
           <label htmlFor="category" className="block text-sm font-medium mb-2">
             Category:{" "}
-            <button className="left-24" onClick={(e) => addCategory(e)}>
+            <button
+              type="button"
+              className="left-24"
+              onClick={() => setIsPopupOpen(true)}
+            >
               <AddIcon />
             </button>
           </label>
@@ -108,19 +122,27 @@ function Form({ setIsPieOrAmount, chooseFormType }) {
             <option value="" disabled>
               Select a category
             </option>
-            {chooseFormType.Form_type === "Income" &&
-              IncomeCategories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            {chooseFormType.Form_type !== "Income" &&
-              ExpenseCategories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
+            {Category
+            .filter((data) => {
+              if(data.formType === chooseFormType.Form_type){
+                return data
+              }
+            })
+            .map((data, index) => (
+              <option key={index} value={data.category}>
+                {data.category}
+              </option>
+            ))
+            }
           </select>
+          <CategoryPopup
+            isOpen={isPopupOpen}
+            onClose={() => setIsPopupOpen(false)}
+            refreshCategories={refreshCategories}
+            chooseFormType={chooseFormType}
+          />
+          <ToastContainer /> {/* ToastContainer is here */}
+
         </div>
 
         <div className="mb-4">

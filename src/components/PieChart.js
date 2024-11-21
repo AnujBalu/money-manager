@@ -6,20 +6,7 @@ import axios from 'axios';
 // Register the required elements with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Function to generate random RGBA colors with higher opacity
-const generateColors = (count) => {
-  return Array.from({ length: count }, () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return {
-      background: `rgba(${r}, ${g}, ${b}, 0.7)`, // Increased opacity
-      border: `rgba(${r}, ${g}, ${b}, 1)`,
-    };
-  });
-};
-
-const PieChart = () => {
+const PieChart = ({ Category }) => {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState([]);
   const [formType, setFormType] = useState('Expense'); // 'Expense' or 'Income'
@@ -27,9 +14,9 @@ const PieChart = () => {
   // Function to fetch data from the backend
   const fetchData = async (type) => {
     try {
-      const response = await axios.get(`http://localhost:3001/FormPost/PieChart`); // Adjust URL to match backend API
+      const response = await axios.get('http://localhost:3001/FormPost/PieChart'); // Adjust URL to match backend API
       const fetchedData = response.data;
-      
+
       // Filter data by formType and calculate totals by category
       const filteredData = Object.values(fetchedData)
         .flat()
@@ -53,8 +40,11 @@ const PieChart = () => {
     fetchData(formType); // Fetch initial data for 'Expense'
   }, [formType]);
 
-  // Generate colors dynamically based on labels
-  const colors = generateColors(labels.length);
+  // Match category and fetch colors from the Category prop
+  const colors = labels.map((label) => {
+    const category = Category.find(item => item.category === label);
+    return category ? category.color : 'rgba(0, 0, 0, 0.5)'; // Default to black with 50% opacity if no color is found
+  });
 
   const chartData = {
     labels,
@@ -62,8 +52,22 @@ const PieChart = () => {
       {
         label: `${formType} by Category`,
         data,
-        backgroundColor: colors.map((color) => color.background),
-        borderColor: colors.map((color) => color.border),
+        backgroundColor: colors.map(color => {
+          // Slightly reduce the opacity to make it more transparent (e.g., 50% opacity)
+          const rgbaColor = color.match(/rgba\((\d+), (\d+), (\d+), (\d+\.\d+)\)/);
+          if (rgbaColor) {
+            return `rgba(${rgbaColor[1]}, ${rgbaColor[2]}, ${rgbaColor[3]}, 0.5)`; // Set alpha to 0.5
+          }
+          return color; // Default behavior if no rgba match is found
+        }),
+        borderColor: colors.map(color => {
+          // Similarly adjust the border color if needed
+          const rgbaColor = color.match(/rgba\((\d+), (\d+), (\d+), (\d+\.\d+)\)/);
+          if (rgbaColor) {
+            return `rgba(${rgbaColor[1]}, ${rgbaColor[2]}, ${rgbaColor[3]}, 1)`; // Keep border fully opaque
+          }
+          return color; // Default behavior if no rgba match is found
+        }),
         borderWidth: 1,
       },
     ],

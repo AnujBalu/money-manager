@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const FormDataSchema = require('../Model/FormData');
+const CategorySchema = require('../Model/CategoryData');
+const CategoryData = require('../Model/CategoryData');
 
 exports.dataPost = async (req, res) => {
     try {
@@ -79,7 +81,7 @@ exports.calendarData = async (req, res) => {
     }
   };
   
-  exports.PieChart = async (req, res) => {
+exports.PieChart = async (req, res) => {
     try {
       // Fetch only "Expense" formType records from the database and group them by date
       const expenses = await FormDataSchema.aggregate([
@@ -122,4 +124,42 @@ exports.calendarData = async (req, res) => {
     }
   };
   
-  
+exports.addCategory = async (req, res) => {
+    const { formType, category, color } = req.body;
+    console.log(formType, category, color)
+    // Validate required fields
+    if (!formType || !category || !color) {
+        return res.status(400).json({ message: "Form type, category, and color are required." });
+    }
+
+    // Validate formType
+    if (!["Income", "Expense"].includes(formType)) {
+        return res.status(400).json({ message: "Invalid form type. Allowed values are 'Income' or 'Expense'." });
+    }
+
+    try {
+        // Check for duplicate category
+        const existingCategory = await CategorySchema.findOne({ formType, category });
+        if (existingCategory) {
+            return res.status(400).json({ message: `Category "${category}" already exists for ${formType}.` });
+        }
+
+        // Save new category
+        const newCategory = new CategorySchema({ formType, category, color });
+        const savedData = await newCategory.save();
+        res.status(201).json({ message: "Category added successfully.", savedData });
+    } catch (error) {
+        console.error("Error adding category:", error.stack || error);
+        res.status(500).json({ message: "Failed to add category. Please try again later." });
+    }
+  };
+
+  exports.getCategory = async (req, res) => {
+    try {
+      const category = await CategorySchema.find({});
+      res.status(200).json(category); 
+    } catch (err) {
+      console.error('Error retrieving categories:', err); // Log the error on the backend for debugging
+      res.status(500).json({ message: err.message });
+    }
+  };

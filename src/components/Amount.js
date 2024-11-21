@@ -134,7 +134,7 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
       <p
         className={`absolute text-xl font-bold transition-all duration-300 ease-in-out top-1/2 left-4 text-red-400 ${
           hovered.expense
-            ? "top-1/2 left-2/3 transform translate-x-14 -translate-y-1/2 text-3xl text-red-600"
+            ? "top-1/2 left-1/2 transform translate-x-1/2 -translate-y-1/2 text-3xl text-red-600"
             : "mt-2"
         }`}
       >

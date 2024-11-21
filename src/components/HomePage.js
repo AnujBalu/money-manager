@@ -16,6 +16,7 @@ import axios from 'axios';
 const HomePage = () => {
 
   const [isPieOrAmount, setIsPieOrAmount] = useState(false);
+  const [Category , setCategory] = useState([]);
   
   const [chooseFormType , setChooseFormType] = useState(
     {
@@ -36,8 +37,21 @@ const HomePage = () => {
       console.log(`Home page error : ${err}`)
     }
   }
+  const fetchCategory = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/FormPost/getCategory');
+      const fetchData = response.data;
+      setCategory(fetchData);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  };
+  
+
   useEffect(()=>{
     fetchAllData()
+    fetchCategory()
+
   },[])
 
   return (
@@ -59,7 +73,7 @@ const HomePage = () => {
 
 
   {/* Amount - Income , Expense , Tot Amount */}
-  <Amount setIsPieOrAmount = {setIsPieOrAmount} setChooseFormType={setChooseFormType} allData={allData}/>
+  <Amount setIsPieOrAmount = {setIsPieOrAmount} setChooseFormType={setChooseFormType} allData={allData} />
 
 
   {/* Pie Chart */}
@@ -67,11 +81,11 @@ const HomePage = () => {
   <div className='' >
     {isPieOrAmount ?  
     <div className='absolute z-10 w-1/4 h-auto right-0 top-1'>
-      <Form setIsPieOrAmount = {setIsPieOrAmount}  chooseFormType={chooseFormType}/> 
+      <Form setIsPieOrAmount = {setIsPieOrAmount}  chooseFormType={chooseFormType} Category={Category}/> 
     </div>
     :
     <div className='absolute z-10 w-1/4 h-auto right-0 top-1/3'>
-    <PieChart />
+    <PieChart Category={Category}/>
     </div>}
     
     
