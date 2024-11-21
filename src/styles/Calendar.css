@@ -1,0 +1,46 @@
+.react-calendar {
+    @apply bg-gray-900/80 backdrop-blur-md text-gray-300 rounded-lg shadow-lg p-4;
+}
+  .react-calendar__navigation button {
+    @apply text-blue-400 min-w-[44px] bg-transparent text-base mt-2;
+  }
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    @apply bg-gray-700/60 text-blue-300;
+  }
+  .react-calendar__navigation button[disabled] {
+    @apply bg-gray-800/60 text-gray-500;
+  }
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus {
+    @apply bg-gray-700/60 text-blue-300 rounded-md;
+  }
+  .react-calendar__tile--now {
+    @apply bg-blue-900/50 text-blue-400 font-bold rounded-md;
+  }
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--now:enabled:focus {
+    @apply bg-blue-900/50 text-blue-400 font-bold rounded-md;
+  }
+  .react-calendar__tile--active {
+    @apply bg-blue-500/90 text-gray-900 font-bold rounded-md;
+  }
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    @apply bg-blue-500/90 text-gray-900;
+  }
+  .react-calendar--selectRange .react-calendar__tile--hover {
+    @apply bg-gray-700/60;
+  }
+  .react-calendar__tile--range {
+    @apply bg-gray-800/60 text-blue-300;
+  }
+  .react-calendar__tile--rangeStart {
+    @apply rounded-l-md bg-blue-500/80 text-gray-900;
+  }
+  .react-calendar__tile--rangeEnd {
+    @apply rounded-r-md bg-blue-500/80 text-gray-900;
+  }
+  .expense-details {
+    @apply mt-4 p-4 bg-gray-800/80 backdrop-blur-md rounded text-gray-300;
+  }
