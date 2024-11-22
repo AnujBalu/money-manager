@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close"; // Import CloseIcon
 import axios from "axios";
 import CategoryPopup from "./CategoryPopup";
-
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Form({ setIsPieOrAmount, chooseFormType,Category }) {
+function Form({ setIsPieOrAmount, chooseFormType, Category, setShowForm }) {  // Pass setShowForm to close the form
 
   const [formData, setFormData] = useState({
-    formType:chooseFormType.Form_type,
+    formType: chooseFormType.Form_type,
     amount: 0,
     date: "",
     category: "",
     note: "",
   });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  // const ExpenseCategories = ["Food", "Transport", "Shopping", "Bills", "Entertainment", "Others"];
-  // const IncomeCategories = ["Salary", "Gift", "Savings", "Others"];
 
   // Handle input changes
   const handleChange = (e) => {
@@ -30,18 +27,14 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
     }));
   };
 
-
   const refreshCategories = async () => {
     // Fetch updated categories from the server
   };
-  
-
- 
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       if (!formData.amount || !formData.date || !formData.category) {
         alert("Please fill out all required fields.");
@@ -52,7 +45,7 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
         formType: chooseFormType.Form_type, // Pass required field
         title: chooseFormType.Title, // Ensure "title" is included
       });
-  
+
       console.log("Form Data Submitted:", response.data);
     } catch (err) {
       console.error("Error submitting form data:", err.response?.data || err.message);
@@ -60,9 +53,12 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
     }
 
     setIsPieOrAmount(false);
-
   };
-  
+
+  // Close form handler
+  const handleClose = () => {
+    setIsPieOrAmount(false);  // Close form by changing parent state
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r p-6">
@@ -70,7 +66,16 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
         onSubmit={handleSubmit}
         className="bg-blue-800 text-white rounded-lg shadow-lg p-6 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">{chooseFormType.Title}</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-center">{chooseFormType.Title}</h2>
+          <button
+            type="button"
+            onClick={handleClose}  // Close form on button click
+            className="text-white text-2xl"
+          >
+            <CloseIcon />
+          </button>
+        </div>
 
         <div className="mb-4">
           <label htmlFor="amount" className="block text-sm font-medium mb-2">
@@ -123,17 +128,16 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
               Select a category
             </option>
             {Category
-            .filter((data) => {
-              if(data.formType === chooseFormType.Form_type){
-                return data
-              }
-            })
-            .map((data, index) => (
-              <option key={index} value={data.category}>
-                {data.category}
-              </option>
-            ))
-            }
+              .filter((data) => {
+                if (data.formType === chooseFormType.Form_type) {
+                  return data;
+                }
+              })
+              .map((data, index) => (
+                <option key={index} value={data.category}>
+                  {data.category}
+                </option>
+              ))}
           </select>
           <CategoryPopup
             isOpen={isPopupOpen}
@@ -142,7 +146,6 @@ function Form({ setIsPieOrAmount, chooseFormType,Category }) {
             chooseFormType={chooseFormType}
           />
           <ToastContainer /> {/* ToastContainer is here */}
-
         </div>
 
         <div className="mb-4">

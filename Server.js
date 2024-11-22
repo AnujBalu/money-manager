@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x
 const FormRoute = require('./Router/FormDataAccess.js')
 
 
-const URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/MoneyManager';
+const URI = 'mongodb+srv://AnujBalu16:AnujBalu%401234@cluster0.wjcs4.mongodb.net/MoneyManager?retryWrites=true&w=majority';
 
 mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-.then(() => console.log('Connected to MongoDB'))
+.then(() => console.log('Connected to MongoDB: MoneyManager database'))
 .catch(err => console.error('MongoDB connection error:', err));
 
 
