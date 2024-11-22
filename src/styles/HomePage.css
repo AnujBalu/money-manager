@@ -83,3 +83,17 @@
     transform-origin: 50% 100%;
   }
   
+
+  @media (max-width: 768px) {
+    .mainClass{
+        overflow: scroll;
+    }
+    .react-calendar{
+        position: relative;
+        margin: auto;
+    }
+    .InputForm{
+        height: fit-content !important;
+        min-height: fit-content !important;
+    }
+  }

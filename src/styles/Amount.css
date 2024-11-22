@@ -1,0 +1,116 @@
+@media (max-width: 768px) {
+  .mainCircleBody, .inner-circle {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .mainCircleBody {
+    height: fit-content;
+    text-decoration: none;
+  }
+  .outer-circle {
+    display: none;
+  }
+  .inner-circle {
+    position: relative;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 0%;
+    width: 100% !important;
+    height: auto; /* Adjust the height automatically */
+    border: none; /* Remove border if not needed */
+    justify-content: space-around !important;
+
+  }
+
+  .income,
+  .totAmount,
+  .expense {
+    width: 28% !important; 
+    height: 120px;
+    border-radius: 0px;
+    transform: translate(0px, 0px);
+    left: 0%;
+    top: 0%;
+    display: flex;
+    flex-direction: column; /* Stack text and button vertically */
+    align-items: center; /* Center align */
+    text-align: center; /* Align text */
+    border-radius: 20px;
+  }
+  .income:hover,
+  .totAmount:hover,
+  .expense:hover {
+    transform: scale(1.05); /* Slightly enlarge the element */
+    background-color: #00c3ff; /* Aqua for an uplifting and fresh feel */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Smooth shadow for depth */
+  }
+  
+  /* Specific hover effects for each type */
+  .income:hover {
+    background-color: #38b6ff !important;  /* Sky blue to signify positivity */
+  }
+  
+  .totAmount:hover {
+    background-color: #ffcc00; /* Gold to signify the total value */
+  }
+  
+  .expense:hover {
+    background-color: #ff6b6b; /* Light red for expenses, signaling caution */
+  }
+  .income p,
+  .totAmount p,
+  .expense p {
+    position: static; /* Remove absolute positioning */
+    top: 0%;
+    left: 0%;
+    font-size: 1rem;
+    text-align: center;
+    transform: translate(0px, 0px);
+    margin: 5px 0; /* Add margin for spacing */
+  }
+  .totAmount p{
+    color: #ffcc00;
+  }
+
+  .income button,
+  .expense button {
+    position: static; /* Remove absolute positioning */
+    top: 0%;
+    left: 0%;
+    font-size: 2rem;
+    display: block;
+    text-align: center;
+    transform: translate(0px, 0px);
+    margin: 10px 0; /* Add margin for spacing */
+  }
+
+  .relative {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .absolute {
+    position: static; /* Allow stacking without overlap */
+    width: auto; /* Adjust circles to fit the screen */
+    height: auto;
+  }
+
+  .totAmount {
+    margin: 20px 0; /* Add spacing between stacked elements */
+  }
+
+  .semiCircleText {
+    display: none;
+  }
+
+  .straightText {
+    display: block;
+  }
+}

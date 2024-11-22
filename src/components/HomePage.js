@@ -56,7 +56,7 @@ const HomePage = () => {
 
   return (
 <div
-  className="bg-center bg-cover h-screen overflow-hidden"
+  className="mainClass bg-center bg-cover h-screen overflow-hidden"
   style={{ backgroundImage: `url(${homeBg})` }}
 >
   {/* Logo */}

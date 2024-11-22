@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CalendarComponent from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../styles/Calendar.css';
+import '../styles/HomePage.css';
 import axios from 'axios';
 
 export default function Calendar() {

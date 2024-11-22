@@ -6,6 +6,8 @@ import CategoryPopup from "./CategoryPopup";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/HomePage.css';
+
 
 function Form({ setIsPieOrAmount, chooseFormType, Category, setShowForm }) {  // Pass setShowForm to close the form
 
@@ -61,7 +63,7 @@ function Form({ setIsPieOrAmount, chooseFormType, Category, setShowForm }) {  //
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r p-6">
+    <div className="InputForm min-h-screen flex items-center justify-center bg-gradient-to-r p-6">
       <form
         onSubmit={handleSubmit}
         className="bg-blue-800 text-white rounded-lg shadow-lg p-6 w-full max-w-md"

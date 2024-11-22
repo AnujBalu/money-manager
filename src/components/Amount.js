@@ -1,5 +1,6 @@
 import React ,{useState, useEffect} from 'react'
 import '../styles/HomePage.css'
+import '../styles/Amount.css'
 import { Title } from 'chart.js';
 
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
@@ -38,18 +39,19 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
     }
 
   return (
-  <div className="relative w-full h-full overflow-hidden">
+  <div className="mainCircleBody relative w-full h-full overflow-hidden">
   {/* Inner Circle */}
-  <div className="absolute top-[-5%] left-[60%] w-[70%] h-[110%] bg-transparent border-[12px] border-white rounded-full">
+  <div className="inner-circle absolute top-[-5%] left-[60%] w-[70%] h-[110%] bg-transparent border-[12px] border-white rounded-full">
     {/* Animated Elements */}
     
     <div
       className="income relative w-[180px] h-[180px] rounded-full bg-gradient-to-b from-blue-500 to-blue-900 text-white 
-        flex flex-col items-center justify-center left-0 top-[5%] hover:z-10 hover:scale-110 transition-transform duration-300 ease-in-out group"
+        flex flex-col items-center justify-center left-0 top-[5%] hover:z-10 hover:scale-110 transition-transform duration-300 
+        ease-in-out group "
       onMouseEnter={() => setHovered({ ...hovered, income: true })}
       onMouseLeave={() => setHovered({ ...hovered, income: false })}
     >
-      <svg className="w-full h-[90%]">
+      <svg className="semiCircleText w-full h-[90%]">
         <defs>
           <path id="semi-circle-path-income" d="M 90,90 m -80,0 a 80,80 0 1,1 160,0" />
         </defs>
@@ -62,7 +64,8 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
             Income
           </textPath>
         </text>
-      </svg>
+      </svg>  
+      <h2 className="straightText w-full text-2xl font-bold hidden grow-0">Income</h2>
       <p
         className={`absolute text-xl font-bold transition-all duration-300 ease-in-out text-green-300 ${
           hovered.income
@@ -81,11 +84,12 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
     {/* Total Amount Circle */}
     <div
       className="totAmount relative w-[180px] h-[180px] rounded-full bg-gradient-to-b from-blue-400 to-blue-800 text-white 
-        flex flex-col items-center justify-center -left-[10%] top-[20%] hover:z-10 hover:scale-110 transition-transform duration-300 ease-in-out group"
+        flex flex-col items-center justify-center -left-[10%] top-[20%] hover:z-10 hover:scale-110 transition-transform duration-300 
+        ease-in-out group"
       onMouseEnter={() => setHovered({ ...hovered, totalAmount: true })}
       onMouseLeave={() => setHovered({ ...hovered, totalAmount: false })}
     >
-      <svg className="w-full h-[90%]">
+      <svg className="semiCircleText w-full h-[90%]">
         <defs>
           <path id="semi-circle-path" d="M 90,90 m -80,0 a 80,80 0 1,1 160,0" />
         </defs>
@@ -99,6 +103,8 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
           </textPath>
         </text>
       </svg>
+      <h2 className="straightText w-full text-2xl font-bold hidden grow">Total Amount</h2>
+
       <p
         className={`absolute text-xl font-bold transition-all duration-300 ease-in-out ${
           hovered.totalAmount
@@ -113,11 +119,12 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
     {/* Expense Circle */}
     <div
       className="expense relative w-[180px] h-[180px] rounded-full bg-gradient-to-b from-blue-600 to-blue-900 text-white 
-        flex flex-col items-center justify-center left-0 top-[35%] hover:z-10 hover:scale-110 transition-transform duration-300 ease-in-out group"
+        flex flex-col items-center justify-center left-0 top-[35%] hover:z-10 hover:scale-110 transition-transform duration-300 
+        ease-in-out group"
       onMouseEnter={() => setHovered({ ...hovered, expense: true })}
       onMouseLeave={() => setHovered({ ...hovered, expense: false })}
     >
-      <svg className="w-full h-[90%]">
+      <svg className="semiCircleText w-full h-[90%]">
         <defs>
           <path id="semi-circle-path-expense" d="M 90,90 m -80,0 a 80,80 0 1,1 160,0" />
         </defs>
@@ -131,6 +138,8 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
           </textPath>
         </text>
       </svg>
+      <h2 className="straightText w-full text-2xl font-bold hidden">Expense</h2>
+
       <p
         className={`absolute text-xl font-bold transition-all duration-300 ease-in-out top-1/2 left-4 text-red-400 ${
           hovered.expense
@@ -150,7 +159,7 @@ function Amount({setIsPieOrAmount ,setChooseFormType ,allData}) {
   </div>
 
   {/* Outter Circle */}
-  <div className="absolute top-[-5%] left-[57%] w-[70%] h-[110%] bg-transparent border-[12px] border-white rounded-full"></div>
+  <div className="outer-circle absolute top-[-5%] left-[57%] w-[70%] h-[110%] bg-transparent border-[12px] border-white rounded-full"></div>
 </div>
 
   )
